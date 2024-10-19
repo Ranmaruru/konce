@@ -4,12 +4,11 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
-@Table(name = "Category")
-class CategoryEntity (
+class Category (
     @Id val id: UUID = UUID.randomUUID(),
     val name: String,
     val type: Boolean,
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user.uuid")
-    val userId: UUID
+    val user_id: UUID
 )

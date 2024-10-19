@@ -1,6 +1,4 @@
 package com.konce.controller
 
-
-class UserController {
-
+class AuthController {
 }
