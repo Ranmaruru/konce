@@ -5,8 +5,7 @@ import java.util.*
 
 @Entity
 class Transaction (
-    @Id
-    val id: UUID = UUID.randomUUID(),
+    @Id val id: UUID = UUID.randomUUID(),
     val amount: Double,
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category.id")

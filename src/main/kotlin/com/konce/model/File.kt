@@ -8,8 +8,7 @@ import java.util.UUID
 
 @Entity
 class File (
-    @Id
-    val id: UUID = UUID.randomUUID(),
+    @Id val id: UUID = UUID.randomUUID(),
     val url: String,
     @OneToOne
     @JoinColumn(name = "transaction.id")
