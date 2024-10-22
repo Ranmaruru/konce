@@ -6,10 +6,10 @@ import java.util.*
 @Entity
 @Table
 class File(
-    @Id @GeneratedValue val id: UUID,
-    val url: String,
+    @Id @GeneratedValue var id: UUID? = null,
+    var url: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transaction.id")
-    val transaction: Transaction
+    var transaction: Transaction
 )
