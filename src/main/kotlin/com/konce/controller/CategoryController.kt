@@ -17,43 +17,33 @@ class CategoryController(
     private val userService: UserService
 ) {
     @GetMapping("/")
-    fun all(): List<Category> {
+    fun getAllUsers(): List<Category> {
         return categoryService.all()
     }
 
     @GetMapping("/{id}")
-    fun one(@PathVariable id: UUID): Category {
+    fun getSingleUser(@PathVariable id: UUID): Category {
         return categoryService.one(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
     }
 
     @PostMapping("/")
-    fun newOne(@RequestBody category: CategoryCreateRequest): Category {
+    fun createUser(@RequestBody category: CategoryCreateRequest): Category {
         val foundUser = userService.one(category.userId) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND
         )
 
-        return categoryService.save(
-            Category(
-                name = category.name,
-                type = category.type,
-                user = foundUser
-            )
-        )
+        return categoryService.save(category.name, foundUser, category.type)
     }
 
     @PutMapping("/{id}")
-    fun updateOne(@PathVariable id: UUID, @RequestBody category: CategoryUpdateRequest): Category {
+    fun updateSingleUser(@PathVariable id: UUID, @RequestBody category: CategoryUpdateRequest): Category {
         val found = categoryService.one(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
         val foundUser = userService.one(category.userId) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND
         )
 
-        found.user = foundUser
-        found.name = category.name
-        found.type = category.type
-
-        return categoryService.save(found)
+        return categoryService.save(category.name, foundUser, category.type)
     }
 
     @DeleteMapping("/{id}")

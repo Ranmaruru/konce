@@ -1,6 +1,7 @@
 package com.konce.service
 
 import com.konce.model.Category
+import com.konce.model.User
 import com.konce.repository.CategoryRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -19,8 +20,14 @@ class CategoryService(
         return categoryRepository.findByIdOrNull(categoryId)
     }
 
-    fun save(category: Category): Category {
-        return categoryRepository.save(category)
+    fun save(name: String, user: User, type: Boolean): Category {
+        return categoryRepository.save(
+            Category(
+                name = name,
+                type = type,
+                user = user
+            )
+        )
     }
 
     fun deleteOne(id: UUID) {

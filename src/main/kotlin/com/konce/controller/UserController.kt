@@ -16,17 +16,17 @@ class UserController(
     private val userService: UserService
 ) {
     @GetMapping("/")
-    fun all(): List<User> {
+    fun getAllUsers(): List<User> {
         return userService.all()
     }
 
     @GetMapping("/{id}")
-    fun one(@PathVariable id: UUID): User {
+    fun getSingleUser(@PathVariable id: UUID): User {
         return userService.one(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
     }
 
     @PostMapping("/")
-    fun newOne(@RequestBody user: UserCreateRequest): User {
+    fun createUser(@RequestBody user: UserCreateRequest): User {
         return userService.save(
             User(
                 username = user.username,
@@ -37,7 +37,7 @@ class UserController(
     }
 
     @PutMapping("/{id}")
-    fun updateOne(@PathVariable id: UUID, @RequestBody user: UserUpdateRequest): User {
+    fun updateSingleUser(@PathVariable id: UUID, @RequestBody user: UserUpdateRequest): User {
         val found = userService.one(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
         found.username = user.username
