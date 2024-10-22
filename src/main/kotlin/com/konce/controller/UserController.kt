@@ -4,6 +4,7 @@ import com.konce.dto.UserCreateRequest
 import com.konce.dto.UserUpdateRequest
 import com.konce.model.User
 import com.konce.service.UserService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
@@ -26,7 +27,7 @@ class UserController(
     }
 
     @PostMapping("/")
-    fun newOne(@RequestBody user: UserCreateRequest): User {
+    fun newOne(@Valid @RequestBody user: UserCreateRequest): User {
         return userService.save(
             User(
                 username = user.username,
@@ -37,7 +38,7 @@ class UserController(
     }
 
     @PutMapping("/{id}")
-    fun updateOne(@PathVariable id: UUID, @RequestBody user: UserUpdateRequest): User {
+    fun updateOne(@PathVariable id: UUID, @Valid @RequestBody user: UserUpdateRequest): User {
         val found = userService.one(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
         found.username = user.username

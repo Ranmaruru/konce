@@ -4,8 +4,11 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
-class Transaction (
-    @Id @GeneratedValue var id: UUID? = null,
+class Transaction(
+    @Id
+    @GeneratedValue
+    var id: UUID? = null,
+
     var amount: Double,
     var description: String,
     var date: Date,
