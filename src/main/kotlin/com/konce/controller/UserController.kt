@@ -27,24 +27,13 @@ class UserController(
 
     @PostMapping("/")
     fun createUser(@RequestBody user: UserCreateRequest): User {
-        return userService.save(
-            User(
-                username = user.username,
-                password = user.password,
-                email = user.email
-            )
-        )
+        return userService.save(user.username, user.password, user.email)
     }
 
     @PutMapping("/{id}")
     fun updateSingleUser(@PathVariable id: UUID, @RequestBody user: UserUpdateRequest): User {
         val found = userService.one(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
-
-        found.username = user.username
-        found.password = user.password
-        found.email = user.email
-
-        return userService.save(found)
+        return userService.save(user.username, user.password, user.email)
     }
 
     @DeleteMapping("/{id}")

@@ -18,8 +18,14 @@ class UserService(
         return userRepository.findByIdOrNull(id)
     }
 
-    fun save(user: User): User {
-        return userRepository.save(user)
+    fun save(username: String, password: String, email: String): User {
+        return userRepository.save(
+            User(
+                username = username,
+                password = password,
+                email = email
+            )
+        )
     }
 
     fun deleteOne(id: UUID) {
