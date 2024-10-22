@@ -6,7 +6,11 @@ import java.util.*
 @Entity
 @Table
 class File(
-    @Id @GeneratedValue var id: UUID? = null,
+    @Id
+    @GeneratedValue
+    var id: UUID? = null,
+
+    @Column(unique = true)
     var url: String,
 
     @ManyToOne(fetch = FetchType.LAZY)

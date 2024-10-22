@@ -5,7 +5,9 @@ import com.konce.dto.CategoryUpdateRequest
 import com.konce.model.Category
 import com.konce.service.CategoryService
 import com.konce.service.UserService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import java.util.*
@@ -27,7 +29,7 @@ class CategoryController(
     }
 
     @PostMapping("/")
-    fun newOne(@RequestBody category: CategoryCreateRequest): Category {
+    fun newOne(@Valid @RequestBody category: CategoryCreateRequest): Category {
         val foundUser = userService.one(category.userId) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND
         )
@@ -42,7 +44,7 @@ class CategoryController(
     }
 
     @PutMapping("/{id}")
-    fun updateOne(@PathVariable id: UUID, @RequestBody category: CategoryUpdateRequest): Category {
+    fun updateOne(@PathVariable id: UUID, @Valid @RequestBody category: CategoryUpdateRequest): Category {
         val found = categoryService.one(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
         val foundUser = userService.one(category.userId) ?: throw ResponseStatusException(

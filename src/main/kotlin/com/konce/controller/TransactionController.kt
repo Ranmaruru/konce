@@ -5,6 +5,7 @@ import com.konce.dto.TransactionUpdateRequest
 import com.konce.model.Transaction
 import com.konce.service.CategoryService
 import com.konce.service.TransactionService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
@@ -27,7 +28,7 @@ class TransactionController(
     }
 
     @PostMapping("/")
-    fun newOne(@RequestBody transaction: TransactionCreateRequest): Transaction {
+    fun newOne(@Valid @RequestBody transaction: TransactionCreateRequest): Transaction {
         val foundCategory = categoryService.one(transaction.categoryId) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND
         )
@@ -43,7 +44,7 @@ class TransactionController(
     }
 
     @PutMapping("/{id}")
-    fun updateOne(@PathVariable id: UUID, @RequestBody transaction: TransactionUpdateRequest): Transaction {
+    fun updateOne(@PathVariable id: UUID, @Valid @RequestBody transaction: TransactionUpdateRequest): Transaction {
         val found = transactionService.one(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
         val foundCategory = categoryService.one(transaction.categoryId) ?: throw ResponseStatusException(
