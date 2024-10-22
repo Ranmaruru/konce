@@ -5,11 +5,12 @@ import java.util.*
 
 @Entity
 class Transaction (
-    @Id val id: UUID = UUID.randomUUID(),
+    @Id @GeneratedValue val id: UUID,
     val amount: Double,
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category.id")
-    val category_id: UUID,
     val description: String,
-    val date: Date
+    val date: Date,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category.id")
+    val category: Category,
 )
