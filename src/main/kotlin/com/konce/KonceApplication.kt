@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class KonceApplication
 
 fun main(vararg args: String) {
-	runApplication<KonceApplication>(*args)
+    runApplication<KonceApplication>(*args)
 }

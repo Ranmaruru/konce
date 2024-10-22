@@ -3,10 +3,8 @@ package com.konce.controller
 import com.konce.dto.TransactionCreateRequest
 import com.konce.dto.TransactionUpdateRequest
 import com.konce.model.Transaction
-import com.konce.repository.CategoryRepository
-import com.konce.repository.TransactionRepository
+import com.konce.service.CategoryService
 import com.konce.service.TransactionService
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
@@ -16,7 +14,7 @@ import java.util.*
 @RequestMapping("/api/transactions")
 class TransactionController(
     private val transactionService: TransactionService,
-    private val categoryRepository: CategoryRepository, private val transactionRepository: TransactionRepository
+    private val categoryService: CategoryService,
 ) {
     @GetMapping("/")
     fun all(): List<Transaction> {
@@ -30,7 +28,7 @@ class TransactionController(
 
     @PostMapping("/")
     fun newOne(@RequestBody transaction: TransactionCreateRequest): Transaction {
-        val foundCategory = categoryRepository.findByIdOrNull(transaction.categoryId) ?: throw ResponseStatusException(
+        val foundCategory = categoryService.one(transaction.categoryId) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND
         )
 
@@ -48,7 +46,7 @@ class TransactionController(
     fun updateOne(@PathVariable id: UUID, @RequestBody transaction: TransactionUpdateRequest): Transaction {
         val found = transactionService.one(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
-        val foundCategory = categoryRepository.findByIdOrNull(transaction.categoryId) ?: throw ResponseStatusException(
+        val foundCategory = categoryService.one(transaction.categoryId) ?: throw ResponseStatusException(
             HttpStatus.NOT_FOUND
         )
 
