@@ -5,12 +5,12 @@ import java.util.*
 
 @Entity
 class Transaction (
-    @Id @GeneratedValue val id: UUID,
-    val amount: Double,
-    val description: String,
-    val date: Date,
+    @Id @GeneratedValue var id: UUID? = null,
+    var amount: Double,
+    var description: String,
+    var date: Date,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category.id")
-    val category: Category,
+    var category: Category,
 )

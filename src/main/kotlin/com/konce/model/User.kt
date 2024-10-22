@@ -9,8 +9,8 @@ import java.util.*
 @Entity
 @Table(name = "users")
 class User(
-    @Id @GeneratedValue val id: UUID,
-    val username: String,
-    val password: String,
-    val email: String
+    @Id @GeneratedValue var id: UUID? = null,
+    var username: String,
+    var password: String,
+    var email: String
 )
