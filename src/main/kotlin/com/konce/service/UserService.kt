@@ -1,16 +1,9 @@
 package com.konce.service
 
+import com.konce.repository.UserRepository
 import org.springframework.stereotype.Service
-import java.util.UUID
 
 @Service
-class UserService {
-    fun getUser(id: UUID) {
-
-    }
-
-    fun getAllUsers() {
-
-    }
-
-}
+class UserService (
+    private val userRepository: UserRepository
+)

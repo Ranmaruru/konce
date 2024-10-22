@@ -4,11 +4,12 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
-class Category (
-    @Id val id: UUID = UUID.randomUUID(),
-    val name: String,
-    val type: Boolean,
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user.uuid")
-    val user_id: UUID
+class Category(
+    @Id @GeneratedValue var id: UUID,
+    var name: String = "",
+    var type: Boolean = true,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "users.id")
+    var user: User
 )

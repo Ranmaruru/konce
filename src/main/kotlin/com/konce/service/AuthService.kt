@@ -1,11 +1,9 @@
 package com.konce.service
 
-class AuthService {
-    fun registerUser() {
+import com.konce.repository.UserRepository
+import org.springframework.stereotype.Service
 
-    }
-
-    fun loginUser() {
-
-    }
-}
+@Service
+class AuthService(
+    private val userRepository: UserRepository
+)

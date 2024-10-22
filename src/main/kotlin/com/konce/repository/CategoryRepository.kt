@@ -1,5 +1,7 @@
 package com.konce.repository
 
-class CategoryRepository {
+import com.konce.model.Category
+import org.springframework.data.repository.CrudRepository
+import java.util.*
 
-}
+interface CategoryRepository : CrudRepository<Category, UUID>

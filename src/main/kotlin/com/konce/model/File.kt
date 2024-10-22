@@ -1,16 +1,15 @@
 package com.konce.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.OneToOne
-import java.util.UUID
+import jakarta.persistence.*
+import java.util.*
 
 @Entity
-class File (
-    @Id val id: UUID = UUID.randomUUID(),
+@Table
+class File(
+    @Id @GeneratedValue val id: UUID,
     val url: String,
-    @OneToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transaction.id")
-    val transaction_id: UUID
+    val transaction: Transaction
 )
