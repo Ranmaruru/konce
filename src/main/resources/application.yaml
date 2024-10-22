@@ -13,6 +13,7 @@ spring:
     generate-ddl: true
     hibernate.ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+## JWT configuration
 jwt:
   key: ${JWT_KEY}
   access-token-expiration: 28800
