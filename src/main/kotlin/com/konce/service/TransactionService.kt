@@ -1,5 +1,6 @@
 package com.konce.service
 
+import com.konce.model.Category
 import com.konce.model.Transaction
 import com.konce.repository.TransactionRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -18,8 +19,15 @@ class TransactionService(
         return transactionRepository.findByIdOrNull(id)
     }
 
-    fun save(transaction: Transaction): Transaction {
-        return transactionRepository.save(transaction)
+    fun save(category: Category, description: String, amount: Double, date: Date): Transaction {
+        return transactionRepository.save(
+            Transaction(
+                category = category,
+                description = description,
+                amount = amount,
+                date = date
+            )
+        )
     }
 
     fun deleteOne(id: UUID) {

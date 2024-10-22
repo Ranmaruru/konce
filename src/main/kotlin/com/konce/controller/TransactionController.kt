@@ -32,14 +32,7 @@ class TransactionController(
             HttpStatus.NOT_FOUND
         )
 
-        return transactionService.save(
-            Transaction(
-                category = foundCategory,
-                description = transaction.description,
-                amount = transaction.amount,
-                date = transaction.date
-            )
-        )
+        return transactionService.save(foundCategory, transaction.description, transaction.amount, transaction.date)
     }
 
     @PutMapping("/{id}")
@@ -50,12 +43,7 @@ class TransactionController(
             HttpStatus.NOT_FOUND
         )
 
-        found.category = foundCategory
-        found.date = transaction.date
-        found.amount = transaction.amount
-        found.description = transaction.description
-
-        return transactionService.save(found)
+        return transactionService.save(foundCategory, transaction.description, transaction.amount, transaction.date)
     }
 
     @DeleteMapping("/{id}")

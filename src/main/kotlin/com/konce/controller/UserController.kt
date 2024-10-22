@@ -33,6 +33,7 @@ class UserController(
     @PutMapping("/{id}")
     fun updateSingleUser(@PathVariable id: UUID, @RequestBody user: UserUpdateRequest): User {
         val found = userService.one(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+
         return userService.save(user.username, user.password, user.email)
     }
 
